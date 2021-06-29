@@ -1,23 +1,18 @@
+import Vue from 'vue'
+import App from './app.vue'
+
 // 引入主页的css
 import "./assets/index.css"
 
 
-class Point {
-    toString() {
-        return 'i am father'
-    }
+// 初始化vue
+// new Vue({
+//   render: h=> h(App)
+// }).$mount("#app")
+
+const init = () => {
+  /* eslint-disable no-new */
+  new Vue({ el: '#app', render: h => h(App) })
 }
 
-class ColorPoint extends Point {
-    constructor(x, y, color) {
-        super(x, y); // 调用父类的constructor(x, y)
-        this.color = color;
-      }
-    
-      toString() {
-        return this.color + ' ' + super.toString(); // 调用父类的toString()
-      }
-}
-let color = new ColorPoint(1,2,'233')
-console.log(color.toString())
-console.log('halo webpack')
+init()
