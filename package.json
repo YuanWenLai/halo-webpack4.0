@@ -24,7 +24,7 @@
     "babel-loader": "^7.1.5",
     "babel-preset-es2015": "^6.24.1",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
-    "copy-webpack-plugin": "^9.0.1",
+    "copy-webpack-plugin": "5.0.1",
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "1.1.11",

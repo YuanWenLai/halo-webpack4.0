@@ -18,30 +18,27 @@ const webpackConfig = require("./webpack.config")
 const WebpackMerge = require('webpack-merge')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyjsJsPlugin = require('uglify-js')
-console.log("🚀 ~ file: webpack.prod.js ~ line 22 ~ UglifyjsJsPlugin", UglifyjsJsPlugin)
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = WebpackMerge.merge(webpackConfig,{
     mode: 'production',
     devtool: 'cheap-module-source-map',
     plugins: [
         // 从public拷贝静态资源到dist
-        new CopyWebpackPlugin({
-            patterns:[{
+        new CopyWebpackPlugin([{
                 from:path.resolve(__dirname,'../public'),
                 to:path.resolve(__dirname,'../dist')
             }]
-        }
         ),
     ],
-    optimzation: {
-        minizer:[
-            new UglifyjsJsPlugin({ // 压缩js
-                caches: true,
-                parallel: true, // 使用多进程并发运行以提高构建速,并发运行可以显著提高构建速度，因此强烈建议添加此配置 
-                sourceMap: true
+    optimization:{
+        minimizer:[
+          new UglifyJsPlugin({//压缩js
+            cache:true,
+            parallel:true,
+            sourceMap:true
             }),
-            new OptimizeCssAssetsPlugin(), // 压缩css
+            new OptimizeCssAssetsPlugin({})
         ],
         // 对于动态导入模块，默认使用 webpack v4+ 提供的全新的通用分块策略
         // 默认情况下，它只会影响到按需加载的 chunks
