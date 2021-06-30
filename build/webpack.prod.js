@@ -7,6 +7,7 @@
 2、copy-webpack-plugin，拷贝静态资源
 3、optimize-css-assets-webpack-plugin，压缩css
 4、uglifyjs-webpack-plugin，压缩js
+
 */
 
 // tips: webpack mode 设置位production时，会自动压缩js
@@ -19,6 +20,8 @@ const WebpackMerge = require('webpack-merge')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
+
 
 module.exports = WebpackMerge.merge(webpackConfig,{
     mode: 'production',

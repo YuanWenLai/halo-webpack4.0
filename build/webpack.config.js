@@ -6,6 +6,13 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin") // 打包前删�
 const MiniCssExtracrPlugin = require("mini-css-extract-plugin") // CSS样式抽离,整合到一个css中
 const vueLoaderPlugin  = require("vue-loader/lib/plugin") // 打包vue文件
 
+
+// HappyPack开启多进程Loader转换
+const HappyPack = require('happypack')
+const os =  require("os")
+const happyThreaPool = HappyPack.ThreadPool({ size: os.cpus().length })
+console.log("~ happyThreaPool", happyThreaPool)
+
 // 用于判断是开发环境development，还剩生产环境production
 const devMode = process.argv.indexOf("--mode=production") === -1
 console.log(" ~ devMode", devMode)
@@ -27,13 +34,11 @@ module.exports = {
             // 处理babel，es7
             {
                 test: /\.js$/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        // presets: ['@babel/preset-env']
-                        presets: ['es2015']
+                use:[
+                    {
+                        loader: 'happypack/loader?id=happyBabel'
                     }
-                },
+                ],
                 exclude: /node_modules/
             },
             // 处理vue文件
@@ -112,5 +117,18 @@ module.exports = {
         }),
         // 解析vue的loader插件
         new vueLoaderPlugin(),
+        // happypack 插件
+        new HappyPack({
+            id: 'happyBabel',
+            loaders: [
+                {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['es2015']
+                    }
+                }
+            ],
+            threadPool: happyThreaPool //共享进程资源池
+        }),
     ],
 }
