@@ -48,13 +48,40 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [MiniCssExtracrPlugin.loader,'css-loader','postcss-loader']
+                use: [
+                    MiniCssExtracrPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    {
+                        loader: 'px2rem-loader',
+                        options: {
+                            remUnit: 75,
+                            remPrecision: 8
+                        }
+                    },
+                    'postcss-loader'
+                ]
             },
             {
                 // css方法一，默认写到js中；css方法二，CSS样式在js中抽离,整合到一个css中
                 test: /\.less$/,
                 // use: [MiniCssExtracrPlugin.loader,'style-loader','css-loader','postcss-loader','less-loader']
-                use: [MiniCssExtracrPlugin.loader,'css-loader','postcss-loader','less-loader']
+                use: [
+                    MiniCssExtracrPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'less-loader',
+                    {
+                        loader: 'px2rem-loader',
+                        options: {
+                            remUnit: 75,
+                            remPrecision: 8
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+            ]
             },
             // 处理图片文件
             {

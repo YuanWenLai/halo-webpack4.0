@@ -1,0 +1,7 @@
+.container {
+    height: 100vh;
+    border-radius: 30px;
+    box-sizing:border-box;
+    background: rgb(158, 235, 224);
+    font-size: 56px;
+}

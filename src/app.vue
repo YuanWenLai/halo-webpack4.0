@@ -1,6 +1,8 @@
 <template>
-    <div id="app">
+    <div id="app" class="container">
+        <div>学习哦，webpack</div>
         <p @click="add">
+            <span>计数点击：</span>
             {{ count }}
         </p>
     </div>
